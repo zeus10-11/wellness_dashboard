@@ -15,6 +15,7 @@ from data_processor import (
     load_data, get_departments, filter_data,
     get_summary_metrics, get_department_rankings
 )
+from chatbot import WellnessChatbot
 
 # Page configuration
 st.set_page_config(
@@ -198,7 +199,7 @@ with metric_col4:
     st.markdown('</div>', unsafe_allow_html=True)
 
 # Create tabs for different views
-tab1, tab2, tab3 = st.tabs(["Department Analysis", "Employee Details", "Comparative Insights"])
+tab1, tab2, tab3, tab4 = st.tabs(["Department Analysis", "Employee Details", "Comparative Insights", "Wellness Assistant"])
 
 with tab1:
     # Department stress overview
@@ -418,6 +419,123 @@ with tab3:
             <p>A negative correlation indicates that lower SpO2 levels are associated with higher stress levels.</p>
         </div>
         """, unsafe_allow_html=True)
+
+with tab4:
+    # Initialize chatbot
+    st.markdown("### Wellness Assistant")
+    
+    # Add custom CSS for chat interface
+    st.markdown("""
+    <style>
+    .chat-container {
+        border-radius: 10px;
+        background-color: #1a1f36;
+        padding: 20px;
+        margin-bottom: 20px;
+        height: 400px;
+        overflow-y: auto;
+        border: 1px solid #2b325b;
+    }
+    .user-message {
+        background-color: #4a56e2;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 18px 18px 3px 18px;
+        margin: 5px 0;
+        max-width: 70%;
+        align-self: flex-end;
+        margin-left: auto;
+        margin-right: 10px;
+    }
+    .bot-message {
+        background-color: #2b325b;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 18px 18px 18px 3px;
+        margin: 5px 0;
+        max-width: 70%;
+        align-self: flex-start;
+        margin-right: auto;
+        margin-left: 10px;
+    }
+    .message-container {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 10px;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+    
+    # Create a session state for chat history if it doesn't exist
+    if 'chatbot' not in st.session_state:
+        st.session_state.chatbot = WellnessChatbot(df)
+    
+    if 'chat_history' not in st.session_state:
+        st.session_state.chat_history = []
+    
+    # Update chatbot with latest data
+    st.session_state.chatbot.update_data(df)
+    
+    # Display chat messages
+    chat_container = st.container()
+    with chat_container:
+        st.markdown('<div class="chat-container" id="chat-container">', unsafe_allow_html=True)
+        
+        # If there's no history, show a welcome message
+        if not st.session_state.chat_history:
+            st.markdown('<div class="message-container"><div class="bot-message">Hello! I\'m your Wellness Assistant. Ask me about departments, employees, or stress levels!</div></div>', unsafe_allow_html=True)
+        else:
+            # Display all messages in the chat history
+            for message in st.session_state.chat_history:
+                if 'user' in message:
+                    st.markdown(f'<div class="message-container"><div class="user-message">{message["user"]}</div></div>', unsafe_allow_html=True)
+                if 'bot' in message:
+                    st.markdown(f'<div class="message-container"><div class="bot-message">{message["bot"]}</div></div>', unsafe_allow_html=True)
+        
+        st.markdown('</div>', unsafe_allow_html=True)
+    
+    # Create input form
+    with st.form(key='chat_form', clear_on_submit=True):
+        col1, col2 = st.columns([5, 1])
+        with col1:
+            user_input = st.text_input("Ask about employee wellness:", placeholder="Example: How is the Engineering department doing?", label_visibility="collapsed")
+        with col2:
+            submit_button = st.form_submit_button("Send")
+    
+    # Process form submission
+    if submit_button and user_input:
+        # Store user message
+        st.session_state.chat_history.append({"user": user_input})
+        
+        # Get chatbot response
+        response = st.session_state.chatbot.respond(user_input)
+        
+        # Store bot response
+        st.session_state.chat_history.append({"bot": response})
+        
+        # Rerun to update the interface
+        st.rerun()
+    
+    # Add example queries to help users
+    st.markdown("### Example Queries")
+    
+    example_col1, example_col2 = st.columns(2)
+    
+    with example_col1:
+        st.markdown("""
+        * Which department has the highest stress?
+        * How is the Engineering department doing?
+        * Show me the mood in Marketing department
+        * What is Employee John's stress level?
+        """)
+    
+    with example_col2:
+        st.markdown("""
+        * Show me all departments
+        * Who has the highest heart rate?
+        * What's the health status of Sales team?
+        * Tell me about employee EMP001
+        """)
 
 # Footer
 st.markdown("---")
