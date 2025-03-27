@@ -1,0 +1,11 @@
+<svg width="120" height="40" viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="120" height="40" rx="8" fill="#1a1f36"/>
+  <path d="M15 10H25C26.1046 10 27 10.8954 27 12V28C27 29.1046 26.1046 30 25 30H15C13.8954 30 13 29.1046 13 28V12C13 10.8954 13.8954 10 15 10Z" stroke="#4a56e2" stroke-width="2"/>
+  <path d="M13 15H27" stroke="#4a56e2" stroke-width="2"/>
+  <path d="M13 20H27" stroke="#4a56e2" stroke-width="2"/>
+  <path d="M13 25H27" stroke="#4a56e2" stroke-width="2"/>
+  <path d="M18 30V10" stroke="#4a56e2" stroke-width="2"/>
+  <path d="M23 30V10" stroke="#4a56e2" stroke-width="2"/>
+  <path d="M35 15H105" stroke="#4a56e2" stroke-width="1"/>
+  <text x="35" y="25" font-family="Arial" font-size="14" fill="#ffffff" font-weight="bold">HR WELLNESS</text>
+</svg>
