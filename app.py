@@ -1040,65 +1040,54 @@ with tab4:
         # Rerun to update the interface
         st.rerun()
     
-    # Add interactive example queries section with futuristic design
-    st.markdown("""
-    <div style="margin-top: 25px; padding: 15px; background: linear-gradient(90deg, rgba(26, 31, 54, 0.7) 0%, rgba(43, 50, 91, 0.7) 100%); border-radius: 10px; border: 1px solid #2b325b; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);">
-        <h3 style="margin-top: 0; margin-bottom: 15px; color: white; font-size: 18px; display: flex; align-items: center;">
-            <span style="display: inline-block; width: 24px; height: 24px; background-color: #4a56e2; border-radius: 50%; margin-right: 10px; text-align: center; line-height: 24px; font-size: 14px;">💡</span>
-            Suggested Queries
-        </h3>
-        <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;">
-            <button style="background: linear-gradient(135deg, rgba(74, 86, 226, 0.3) 0%, rgba(43, 50, 91, 0.3) 100%); padding: 8px 15px; border-radius: 20px; cursor: pointer; transition: all 0.2s ease; border: 1px solid rgba(74, 86, 226, 0.5); display: inline-block; margin: 5px 0; color: white; font-family: sans-serif;">Which department has the highest stress?</button>
-            <button style="background: linear-gradient(135deg, rgba(74, 86, 226, 0.3) 0%, rgba(43, 50, 91, 0.3) 100%); padding: 8px 15px; border-radius: 20px; cursor: pointer; transition: all 0.2s ease; border: 1px solid rgba(74, 86, 226, 0.5); display: inline-block; margin: 5px 0; color: white; font-family: sans-serif;">How is the Engineering department?</button>
-            <button style="background: linear-gradient(135deg, rgba(74, 86, 226, 0.3) 0%, rgba(43, 50, 91, 0.3) 100%); padding: 8px 15px; border-radius: 20px; cursor: pointer; transition: all 0.2s ease; border: 1px solid rgba(74, 86, 226, 0.5); display: inline-block; margin: 5px 0; color: white; font-family: sans-serif;">Show me all departments</button>
-            <button style="background: linear-gradient(135deg, rgba(74, 86, 226, 0.3) 0%, rgba(43, 50, 91, 0.3) 100%); padding: 8px 15px; border-radius: 20px; cursor: pointer; transition: all 0.2s ease; border: 1px solid rgba(74, 86, 226, 0.5); display: inline-block; margin: 5px 0; color: white; font-family: sans-serif;">Tell me about employee EMP001</button>
-        </div>
-        
-        <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-            <div class="query-category" style="flex: 1;">
-                <div style="font-weight: bold; font-size: 14px; color: #4a56e2; margin-bottom: 8px; border-bottom: 1px solid rgba(74, 86, 226, 0.3); padding-bottom: 5px;">
-                    <span style="display: inline-block; width: 18px; height: 18px; background-color: rgba(74, 86, 226, 0.3); border-radius: 50%; margin-right: 5px; text-align: center; line-height: 18px; font-size: 10px;">🔍</span>
-                    Department Queries
-                </div>
-                <ul style="list-style-type: none; padding-left: 10px; margin: 0;">
-                    <li style="margin-bottom: 8px; display: flex; align-items: center;">
-                        <span style="color: #4a56e2; margin-right: 8px;">→</span>
-                        <span>Show me the mood in Marketing</span>
-                    </li>
-                    <li style="margin-bottom: 8px; display: flex; align-items: center;">
-                        <span style="color: #4a56e2; margin-right: 8px;">→</span>
-                        <span>What's the health status of Sales?</span>
-                    </li>
-                    <li style="margin-bottom: 8px; display: flex; align-items: center;">
-                        <span style="color: #4a56e2; margin-right: 8px;">→</span>
-                        <span>Which team has the lowest SpO2?</span>
-                    </li>
-                </ul>
-            </div>
-            
-            <div class="query-category" style="flex: 1;">
-                <div style="font-weight: bold; font-size: 14px; color: #4a56e2; margin-bottom: 8px; border-bottom: 1px solid rgba(74, 86, 226, 0.3); padding-bottom: 5px;">
-                    <span style="display: inline-block; width: 18px; height: 18px; background-color: rgba(74, 86, 226, 0.3); border-radius: 50%; margin-right: 5px; text-align: center; line-height: 18px; font-size: 10px;">👤</span>
-                    Employee Queries
-                </div>
-                <ul style="list-style-type: none; padding-left: 10px; margin: 0;">
-                    <li style="margin-bottom: 8px; display: flex; align-items: center;">
-                        <span style="color: #4a56e2; margin-right: 8px;">→</span>
-                        <span>What is John's stress level?</span>
-                    </li>
-                    <li style="margin-bottom: 8px; display: flex; align-items: center;">
-                        <span style="color: #4a56e2; margin-right: 8px;">→</span>
-                        <span>Who has the highest heart rate?</span>
-                    </li>
-                    <li style="margin-bottom: 8px; display: flex; align-items: center;">
-                        <span style="color: #4a56e2; margin-right: 8px;">→</span>
-                        <span>Compare EMP002 and EMP003</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
+    # Add example queries for users to try
+    st.subheader("💡 Suggested Queries")
+    
+    # Create a grid for the main quick query buttons
+    query_cols = st.columns(4)
+    query_options = [
+        "Which department has the highest stress?",
+        "How is the Engineering department?",
+        "Show me all departments",
+        "Tell me about employee EMP001"
+    ]
+    
+    # Initialize session state variables if they don't exist
+    if 'user_query' not in st.session_state:
+        st.session_state.user_query = ""
+    if 'chat_history' not in st.session_state:
+        st.session_state.chat_history = []
+    if 'chatbot' not in st.session_state:
+        st.session_state.chatbot = WellnessChatbot(df)
+                
+    # Create buttons for each query
+    for i, query in enumerate(query_options):
+        with query_cols[i]:
+            if st.button(query, key=f"query_btn_{i}", use_container_width=True):
+                # If button is pressed, set the query in the text input
+                st.session_state.user_query = query
+                # Update chat history immediately
+                st.session_state.chat_history.append({"user": query})
+                # Use the chatbot to generate a response
+                response = st.session_state.chatbot.respond(query)
+                st.session_state.chat_history.append({"bot": response})
+                # Force a rerun to update the interface
+                st.rerun()
+    
+    # Create two columns for the categorical query examples
+    dept_col, emp_col = st.columns(2)
+    
+    with dept_col:
+        st.markdown("**🔍 Department Queries**")
+        st.markdown("→ Show me the mood in Marketing")
+        st.markdown("→ What's the health status of Sales?")
+        st.markdown("→ Which team has the lowest SpO2?")
+    
+    with emp_col:
+        st.markdown("**👤 Employee Queries**")
+        st.markdown("→ What is John's stress level?")
+        st.markdown("→ Who has the highest heart rate?")
+        st.markdown("→ Compare EMP002 and EMP003")
 
 # Footer
 st.markdown("---")

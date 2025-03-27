@@ -1,0 +1,43 @@
+<div style="display: flex; flex-wrap: wrap; gap: 10px;">
+    <div class="query-category" style="flex: 1;">
+        <div style="font-weight: bold; font-size: 14px; color: #4a56e2; margin-bottom: 8px; border-bottom: 1px solid rgba(74, 86, 226, 0.3); padding-bottom: 5px;">
+            <span style="display: inline-block; width: 18px; height: 18px; background-color: rgba(74, 86, 226, 0.3); border-radius: 50%; margin-right: 5px; text-align: center; line-height: 18px; font-size: 10px;">🔍</span>
+            Department Queries
+        </div>
+        <ul style="list-style-type: none; padding-left: 10px; margin: 0;">
+            <li style="margin-bottom: 8px; display: flex; align-items: center;">
+                <span style="color: #4a56e2; margin-right: 8px;">→</span>
+                <span>Show me the mood in Marketing</span>
+            </li>
+            <li style="margin-bottom: 8px; display: flex; align-items: center;">
+                <span style="color: #4a56e2; margin-right: 8px;">→</span>
+                <span>What's the health status of Sales?</span>
+            </li>
+            <li style="margin-bottom: 8px; display: flex; align-items: center;">
+                <span style="color: #4a56e2; margin-right: 8px;">→</span>
+                <span>Which team has the lowest SpO2?</span>
+            </li>
+        </ul>
+    </div>
+
+    <div class="query-category" style="flex: 1;">
+        <div style="font-weight: bold; font-size: 14px; color: #4a56e2; margin-bottom: 8px; border-bottom: 1px solid rgba(74, 86, 226, 0.3); padding-bottom: 5px;">
+            <span style="display: inline-block; width: 18px; height: 18px; background-color: rgba(74, 86, 226, 0.3); border-radius: 50%; margin-right: 5px; text-align: center; line-height: 18px; font-size: 10px;">👤</span>
+            Employee Queries
+        </div>
+        <ul style="list-style-type: none; padding-left: 10px; margin: 0;">
+            <li style="margin-bottom: 8px; display: flex; align-items: center;">
+                <span style="color: #4a56e2; margin-right: 8px;">→</span>
+                <span>What is John's stress level?</span>
+            </li>
+            <li style="margin-bottom: 8px; display: flex; align-items: center;">
+                <span style="color: #4a56e2; margin-right: 8px;">→</span>
+                <span>Who has the highest heart rate?</span>
+            </li>
+            <li style="margin-bottom: 8px; display: flex; align-items: center;">
+                <span style="color: #4a56e2; margin-right: 8px;">→</span>
+                <span>Compare EMP002 and EMP003</span>
+            </li>
+        </ul>
+    </div>
+</div>
