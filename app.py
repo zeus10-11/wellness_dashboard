@@ -103,9 +103,50 @@ with st.spinner("Loading wellness data..."):
 # Sidebar for filters
 st.sidebar.markdown("## Dashboard Controls")
 
+# Add logo to sidebar
+st.sidebar.markdown(f'{svg_logo}', unsafe_allow_html=True)
+st.sidebar.markdown("---")
+
 # Department filter
 departments = get_departments(df)
 selected_department = st.sidebar.selectbox("Select Department", departments)
+
+# View mode
+view_mode = st.sidebar.radio(
+    "Dashboard View Mode",
+    ["Standard", "Compact", "Detailed"],
+    index=0
+)
+
+# Alert threshold customization
+st.sidebar.markdown("## Alert Thresholds")
+with st.sidebar.expander("Customize Thresholds"):
+    hr_threshold = st.slider(
+        "Heart Rate Alert (bpm)",
+        min_value=80,
+        max_value=120,
+        value=100,
+        step=5,
+        help="Employees with heart rate above this value will be flagged"
+    )
+    
+    stress_threshold = st.slider(
+        "Stress Level Alert",
+        min_value=50,
+        max_value=90,
+        value=70,
+        step=5,
+        help="Employees with stress level above this value will be flagged"
+    )
+    
+    spo2_threshold = st.slider(
+        "SpO2 Alert (%)",
+        min_value=90,
+        max_value=95,
+        value=92,
+        step=1,
+        help="Employees with SpO2 below this value will be flagged"
+    )
 
 # Time range filter (for future implementation with time series data)
 st.sidebar.markdown("## Time Range")
@@ -114,6 +155,38 @@ time_range = st.sidebar.radio(
     ["Today", "This Week", "This Month", "Quarter"],
     index=0
 )
+
+# Data visualization options
+st.sidebar.markdown("## Visualization Options")
+chart_type = st.sidebar.selectbox(
+    "Chart Style",
+    ["Standard", "Minimal", "Dark", "Futuristic"],
+    index=3
+)
+
+include_annotations = st.sidebar.checkbox("Include Chart Annotations", value=True)
+show_trend_lines = st.sidebar.checkbox("Show Trend Lines", value=True)
+
+# Export options
+st.sidebar.markdown("## Export & Share")
+with st.sidebar.expander("Export Options"):
+    export_format = st.radio(
+        "Export Format",
+        ["CSV", "Excel", "PDF", "JSON"],
+        index=0
+    )
+    
+    if st.button("Export Data"):
+        st.info(f"In a production environment, this would export the data as {export_format}.")
+    
+    report_type = st.selectbox(
+        "Schedule Reports",
+        ["Daily Summary", "Weekly Analytics", "Monthly Overview", "Custom"],
+        index=1
+    )
+    
+    if st.button("Schedule"):
+        st.success(f"Report scheduled: {report_type}")
 
 # Apply filters
 filtered_df = filter_data(df, selected_department)
@@ -132,10 +205,24 @@ st.sidebar.markdown(f"**Last Updated:** {current_time}")
 # Admin section (collapsible)
 with st.sidebar.expander("Admin Controls"):
     st.markdown("#### Database Management")
-    if st.button("Reset Demo Data"):
-        # This will clear the cache and reload the data
-        st.cache_data.clear()
-        st.rerun()
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        if st.button("Reset Demo Data"):
+            # This will clear the cache and reload the data
+            st.cache_data.clear()
+            st.rerun()
+    
+    with col2:
+        if st.button("Archive Data"):
+            st.info("This would archive old data to storage.")
+    
+    st.markdown("#### User Management")
+    user_role = st.selectbox(
+        "Current User Role",
+        ["HR Manager", "Department Head", "Executive", "Admin"],
+        index=0
+    )
     
     st.markdown("#### Data Refresh")
     refresh_rate = st.select_slider(
@@ -144,10 +231,29 @@ with st.sidebar.expander("Admin Controls"):
         value="Off"
     )
     st.caption("In a production environment, this would automatically refresh data from sensors.")
+    
+    advanced_settings = st.checkbox("Show Advanced Settings", value=False)
+    if advanced_settings:
+        st.markdown("#### System Settings")
+        cache_time = st.number_input("Cache Time (minutes)", min_value=1, max_value=60, value=5)
+        max_records = st.number_input("Max Records to Display", min_value=10, max_value=500, value=100)
+        st.caption("These settings would affect system performance.")
 
 # Refresh button
-if st.sidebar.button("Refresh Data"):
+if st.sidebar.button("Refresh Dashboard"):
     st.rerun()
+
+# Help section
+with st.sidebar.expander("Help & Resources"):
+    st.markdown("""
+    - **Documentation**: View dashboard documentation
+    - **Support**: Contact system administrator
+    - **Training**: Schedule HR wellness training
+    - **FAQ**: Frequently asked questions
+    """)
+    
+    if st.button("Contact Support"):
+        st.info("In a production environment, this would open a support ticket system.")
 
 # Main dashboard
 # Top metrics row
