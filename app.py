@@ -25,61 +25,225 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS for futuristic look
+# Custom CSS for enhanced futuristic look
 st.markdown("""
 <style>
+    /* Base theme */
     .main {
         background-color: #0e1117;
     }
     .stApp {
         background: linear-gradient(135deg, #0e1117 0%, #1a1f36 100%);
     }
-    .css-1aumxhk {
-        background-color: #1a1f36;
+    
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
     }
+    ::-webkit-scrollbar-track {
+        background: #0e1117;
+        border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: #4a56e2;
+        border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+        background: #5a66f2;
+    }
+    
+    /* Cards and containers */
     .data-card {
         border-radius: 10px;
         padding: 20px;
-        background-color: #1a1f36;
+        background-color: rgba(26, 31, 54, 0.8);
         margin-bottom: 20px;
         border: 1px solid #2b325b;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
     }
+    .data-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(74, 86, 226, 0.3);
+        border: 1px solid #4a56e2;
+    }
+    
+    /* Metrics styling */
     .metric-value {
-        font-size: 24px;
+        font-size: 28px;
         font-weight: bold;
         color: #4a56e2;
+        text-shadow: 0 0 15px rgba(74, 86, 226, 0.5);
+        transition: all 0.3s ease;
+    }
+    .data-card:hover .metric-value {
+        color: #5a66f2;
+        transform: scale(1.05);
     }
     .metric-label {
         font-size: 14px;
         color: #c0c0c0;
+        font-weight: 300;
     }
+    
+    /* Employee cards */
     .employee-card {
-        padding: 10px;
+        padding: 12px;
         border-radius: 8px;
         margin-bottom: 10px;
-        background-color: #1a1f36;
+        background-color: rgba(26, 31, 54, 0.7);
         border: 1px solid #2b325b;
+        transition: all 0.2s ease;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     }
+    .employee-card:hover {
+        background-color: rgba(43, 50, 91, 0.8);
+        border-left: 3px solid #4a56e2;
+    }
+    
+    /* DataFrame styling */
     .stDataFrame {
         border-radius: 10px !important;
-        background-color: #1a1f36 !important;
+        background-color: rgba(26, 31, 54, 0.7) !important;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
     }
+    
+    /* Text elements */
     h1, h2, h3 {
         color: #ffffff;
+        text-shadow: 0 0 10px rgba(74, 86, 226, 0.3);
     }
+    
+    /* Tabs styling */
     .stTabs [data-baseweb="tab-list"] {
         gap: 8px;
+        background-color: rgba(14, 17, 23, 0.3);
+        padding: 5px;
+        border-radius: 10px;
     }
     .stTabs [data-baseweb="tab"] {
-        background-color: #1a1f36;
-        border-radius: 6px 6px 0px 0px;
+        background-color: rgba(26, 31, 54, 0.7);
+        border-radius: 8px;
         padding: 10px 20px;
         color: white;
+        transition: all 0.2s ease;
+        border: 1px solid rgba(43, 50, 91, 0.5);
+    }
+    .stTabs [data-baseweb="tab"]:hover {
+        background-color: rgba(43, 50, 91, 0.9);
+        border-color: #4a56e2;
     }
     .stTabs [aria-selected="true"] {
         background-color: #4a56e2 !important;
         color: white !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(74, 86, 226, 0.4);
+    }
+    
+    /* Sidebar styling */
+    .css-1aumxhk, [data-testid="stSidebar"] {
+        background-color: rgba(26, 31, 54, 0.85);
+        border-right: 1px solid #2b325b;
+        backdrop-filter: blur(10px);
+    }
+    [data-testid="stSidebarContent"] {
+        background: linear-gradient(180deg, rgba(26, 31, 54, 0.9) 0%, rgba(14, 17, 23, 0.9) 100%);
+    }
+    
+    /* Inputs and controls */
+    .stSlider [data-baseweb="slider"] {
+        height: 5px;
+        background-color: rgba(43, 50, 91, 0.6) !important;
+    }
+    .stSlider [data-baseweb="slider"] [data-baseweb="thumb"] {
+        height: 15px;
+        width: 15px;
+        background-color: #4a56e2;
+        box-shadow: 0 0 10px rgba(74, 86, 226, 0.6);
+    }
+    .stCheckbox [data-testid="stCheckbox"] {
+        color: #4a56e2 !important;
+    }
+    .stCheckbox [data-testid="stCheckbox"]:hover {
+        color: #5a66f2 !important;
+    }
+    .stSelectbox [data-baseweb="select"] {
+        background-color: rgba(26, 31, 54, 0.7);
+        border: 1px solid #2b325b;
+        border-radius: 8px;
+        transition: all 0.2s ease;
+    }
+    .stSelectbox [data-baseweb="select"]:hover, .stSelectbox [data-baseweb="select"]:focus {
+        border-color: #4a56e2;
+        box-shadow: 0 0 0 1px #4a56e2;
+    }
+    
+    /* Button styling */
+    button[kind="primary"] {
+        background-color: #4a56e2;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 8px;
+        color: white;
+        font-weight: 600;
+        transition: all 0.2s ease;
+    }
+    button[kind="primary"]:hover {
+        background-color: #5a66f2;
+        box-shadow: 0 0 15px rgba(74, 86, 226, 0.5);
+        transform: translateY(-2px);
+    }
+    
+    /* Custom elements */
+    .glow-text {
+        color: #4a56e2;
+        text-shadow: 0 0 10px rgba(74, 86, 226, 0.8);
+        font-weight: bold;
+    }
+    .hover-zoom {
+        transition: transform 0.3s ease;
+    }
+    .hover-zoom:hover {
+        transform: scale(1.05);
+    }
+    
+    /* Status indicators */
+    .status-indicator {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        margin-right: 6px;
+    }
+    .status-good {
+        background-color: #4CAF50;
+        box-shadow: 0 0 8px #4CAF50;
+    }
+    .status-warning {
+        background-color: #FFC107;
+        box-shadow: 0 0 8px #FFC107;
+    }
+    .status-critical {
+        background-color: #F44336;
+        box-shadow: 0 0 8px #F44336;
+    }
+    
+    /* Animations */
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+    .pulse-animation {
+        animation: pulse 2s infinite ease-in-out;
+    }
+    
+    /* Neon borders */
+    .neon-border {
+        border: 1px solid #4a56e2;
+        box-shadow: 0 0 10px rgba(74, 86, 226, 0.8), inset 0 0 10px rgba(74, 86, 226, 0.4);
     }
 </style>
 """, unsafe_allow_html=True)
@@ -256,53 +420,96 @@ with st.sidebar.expander("Help & Resources"):
         st.info("In a production environment, this would open a support ticket system.")
 
 # Main dashboard
-# Top metrics row
+# Top metrics row with animation and interactive elements
 st.markdown("## Health Metrics Overview")
+
+# Add a header with animated effect
+st.markdown("""
+<div style="padding: 10px; margin-bottom: 20px; border-radius: 10px; background-color: rgba(26, 31, 54, 0.7); text-align: center;">
+    <h2 class="glow-text pulse-animation" style="margin: 0; font-size: 1.8rem;">Real-Time Wellness Metrics</h2>
+    <p style="color: #c0c0c0; margin-top: 5px;">Interactive dashboard with live metrics and alerts</p>
+</div>
+""", unsafe_allow_html=True)
+
 metric_col1, metric_col2, metric_col3, metric_col4 = st.columns(4)
 
+# Determine status classes based on thresholds
+hr_status = "status-good" if metrics['avg_heart_rate'] < hr_threshold else "status-critical" 
+spo2_status = "status-critical" if metrics['avg_spo2'] < spo2_threshold else "status-good"
+stress_status = "status-good" if stress_threshold > 70 else "status-warning" if stress_threshold > 50 else "status-critical"
+
 with metric_col1:
-    st.markdown('<div class="data-card">', unsafe_allow_html=True)
-    st.metric(
-        label="Total Employees",
-        value=metrics['total_employees'],
-        delta=None
-    )
-    if selected_department != 'All Departments':
-        st.caption(f"In {selected_department}")
-    else:
-        st.caption("Across all departments")
-    st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown(f"""
+    <div class="data-card hover-zoom neon-border">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h4 style="margin: 0;">Total Employees</h4>
+            <div class="status-indicator status-good"></div>
+        </div>
+        <div class="metric-value pulse-animation">{metrics['total_employees']}</div>
+        <div class="metric-label">
+            {f"In {selected_department}" if selected_department != 'All Departments' else "Across all departments"}
+        </div>
+        <div style="margin-top: 10px; font-size: 12px; color: #c0c0c0;">
+            <span style="display: inline-block; width: 8px; height: 8px; background-color: #4a56e2; margin-right: 5px; border-radius: 50%;"></span> Updated {current_time.split(',')[1].strip()}
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
 
 with metric_col2:
-    st.markdown('<div class="data-card">', unsafe_allow_html=True)
-    st.metric(
-        label="Average Heart Rate",
-        value=f"{metrics['avg_heart_rate']:.1f} bpm",
-        delta=None
-    )
-    st.caption("Normal range: 60-100 bpm")
-    st.markdown('</div>', unsafe_allow_html=True)
+    # Add animation if heart rate is outside normal range
+    animation_class = "pulse-animation" if metrics['avg_heart_rate'] > 100 or metrics['avg_heart_rate'] < 60 else ""
+    
+    st.markdown(f"""
+    <div class="data-card hover-zoom">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h4 style="margin: 0;">Average Heart Rate</h4>
+            <div class="status-indicator {hr_status}"></div>
+        </div>
+        <div class="metric-value {animation_class}">{metrics['avg_heart_rate']:.1f} <span style="font-size: 16px;">bpm</span></div>
+        <div class="metric-label">Normal range: 60-100 bpm</div>
+        <div style="height: 5px; width: 100%; background-color: rgba(74, 86, 226, 0.2); border-radius: 3px; margin-top: 10px;">
+            <div style="height: 100%; width: {min(100, metrics['avg_heart_rate']/1.2)}%; background-color: #4a56e2; border-radius: 3px;"></div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
 
 with metric_col3:
-    st.markdown('<div class="data-card">', unsafe_allow_html=True)
-    st.metric(
-        label="Average SpO2",
-        value=f"{metrics['avg_spo2']:.1f}%",
-        delta=None
-    )
-    st.caption("Healthy: ≥95%")
-    st.markdown('</div>', unsafe_allow_html=True)
+    # Add animation if SpO2 is below healthy range
+    animation_class = "pulse-animation" if metrics['avg_spo2'] < 95 else ""
+    
+    st.markdown(f"""
+    <div class="data-card hover-zoom">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h4 style="margin: 0;">Average SpO2</h4>
+            <div class="status-indicator {spo2_status}"></div>
+        </div>
+        <div class="metric-value {animation_class}">{metrics['avg_spo2']:.1f}<span style="font-size: 16px;">%</span></div>
+        <div class="metric-label">Healthy: ≥95%</div>
+        <div style="height: 5px; width: 100%; background-color: rgba(74, 86, 226, 0.2); border-radius: 3px; margin-top: 10px;">
+            <div style="height: 100%; width: {metrics['avg_spo2']}%; background-color: {'#4CAF50' if metrics['avg_spo2'] >= 95 else '#FFC107' if metrics['avg_spo2'] >= 92 else '#F44336'}; border-radius: 3px;"></div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
 
 with metric_col4:
-    st.markdown('<div class="data-card">', unsafe_allow_html=True)
-    st.metric(
-        label="High Stress Employees",
-        value=f"{metrics['high_stress_count']}",
-        delta=f"{metrics['high_stress_percent']:.1f}% of total",
-        delta_color="inverse"
-    )
-    st.caption("Stress score > 70")
-    st.markdown('</div>', unsafe_allow_html=True)
+    # Always pulse animation for high stress
+    animation_class = "pulse-animation" if metrics['high_stress_count'] > 0 else ""
+    
+    st.markdown(f"""
+    <div class="data-card hover-zoom">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h4 style="margin: 0;">High Stress Employees</h4>
+            <div class="status-indicator {stress_status}"></div>
+        </div>
+        <div class="metric-value {animation_class}">{metrics['high_stress_count']}</div>
+        <div class="metric-label" style="color: {'#F44336' if metrics['high_stress_percent'] > 20 else '#FFC107' if metrics['high_stress_percent'] > 10 else '#c0c0c0'};">
+            {metrics['high_stress_percent']:.1f}% of total
+        </div>
+        <div style="height: 5px; width: 100%; background-color: rgba(74, 86, 226, 0.2); border-radius: 3px; margin-top: 10px;">
+            <div style="height: 100%; width: {metrics['high_stress_percent']}%; background-color: {'#F44336' if metrics['high_stress_percent'] > 20 else '#FFC107' if metrics['high_stress_percent'] > 10 else '#4CAF50'}; border-radius: 3px;"></div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
 
 # Create tabs for different views
 tab1, tab2, tab3, tab4 = st.tabs(["Department Analysis", "Employee Details", "Comparative Insights", "Wellness Assistant"])
@@ -421,35 +628,53 @@ with tab2:
             col1, col2, col3, col4 = st.columns([2, 1, 1, 1])
             
             with col1:
+                # Determine status indicators based on thresholds
+                hr_status = "status-good" if employee['heart_rate'] < hr_threshold else "status-critical"
+                spo2_status = "status-critical" if employee['spo2'] < spo2_threshold else "status-good"
+                stress_status = "status-good" if employee['stress_score'] < stress_threshold else "status-critical"
+                
+                # Add pulse animation to elements that exceed thresholds
+                hr_class = "pulse-animation" if employee['heart_rate'] >= hr_threshold else ""
+                spo2_class = "pulse-animation" if employee['spo2'] < spo2_threshold else ""
+                stress_class = "pulse-animation" if employee['stress_score'] >= stress_threshold else ""
+                
                 st.markdown(f"""
-                <div class='employee-card'>
-                    <strong>{employee['name']}</strong> ({employee['employee_id']})<br>
+                <div class='employee-card neon-border'>
+                    <strong class="glow-text">{employee['name']}</strong> ({employee['employee_id']})<br>
                     <small>{employee['department']} | Age: {employee['age']} | {employee['gender']}</small>
+                    <div style="position: absolute; top: 10px; right: 10px;">
+                        <span class="status-indicator {hr_status if employee['heart_rate'] > 100 else spo2_status if employee['spo2'] < 95 else stress_status if employee['stress_score'] > 70 else 'status-good'}"></span>
+                    </div>
                 </div>
                 """, unsafe_allow_html=True)
             
             with col2:
                 st.markdown(f"""
-                <div class='employee-card'>
+                <div class='employee-card hover-zoom'>
                     <div class='metric-label'>Heart Rate</div>
-                    <div class='metric-value'>{employee['heart_rate']} bpm</div>
+                    <div class='metric-value {hr_class}'>{employee['heart_rate']} bpm</div>
+                    <div class="status-indicator {hr_status}" style="display: inline-block;"></div>
+                    <small>{" " * 5}Normal range: 60-100 bpm</small>
                 </div>
                 """, unsafe_allow_html=True)
             
             with col3:
                 st.markdown(f"""
-                <div class='employee-card'>
+                <div class='employee-card hover-zoom'>
                     <div class='metric-label'>SpO2</div>
-                    <div class='metric-value'>{employee['spo2']}%</div>
+                    <div class='metric-value {spo2_class}'>{employee['spo2']}%</div>
+                    <div class="status-indicator {spo2_status}" style="display: inline-block;"></div>
+                    <small>{" " * 5}Healthy: ≥95%</small>
                 </div>
                 """, unsafe_allow_html=True)
             
             with col4:
                 st.markdown(f"""
-                <div class='employee-card'>
+                <div class='employee-card hover-zoom'>
                     <div class='metric-label'>Mood</div>
                     <div class='metric-value'>{employee['mood']} {get_mood_emoji(employee['mood'])}</div>
-                    <small>Stress: {employee['stress_score']}</small>
+                    <div class='metric-label {stress_class}'>Stress: <span class="glow-text">{employee['stress_score']}</span></div>
+                    <div class="status-indicator {stress_status}" style="display: inline-block;"></div>
                 </div>
                 """, unsafe_allow_html=True)
         
@@ -530,44 +755,182 @@ with tab4:
     # Initialize chatbot
     st.markdown("### Wellness Assistant")
     
-    # Add custom CSS for chat interface
+    # Add custom CSS for enhanced chat interface
     st.markdown("""
     <style>
     .chat-container {
-        border-radius: 10px;
-        background-color: #1a1f36;
+        border-radius: 12px;
+        background-color: rgba(26, 31, 54, 0.8);
         padding: 20px;
         margin-bottom: 20px;
-        height: 400px;
+        height: 450px;
         overflow-y: auto;
-        border: 1px solid #2b325b;
+        border: 1px solid #4a56e2;
+        box-shadow: 0 0 15px rgba(74, 86, 226, 0.5), inset 0 0 10px rgba(74, 86, 226, 0.2);
+        backdrop-filter: blur(10px);
+        position: relative;
     }
+    
+    .chat-container::before {
+        content: "";
+        position: absolute;
+        top: -5px;
+        left: -5px;
+        right: -5px;
+        bottom: -5px;
+        border-radius: 15px;
+        background: linear-gradient(45deg, #4a56e2, transparent, #4a56e2, transparent);
+        background-size: 400% 400%;
+        opacity: 0.3;
+        z-index: -1;
+        animation: gradient-animation 15s ease infinite;
+    }
+    
+    @keyframes gradient-animation {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+    
     .user-message {
-        background-color: #4a56e2;
+        background: linear-gradient(135deg, #4a56e2 0%, #3a46d2 100%);
         color: white;
-        padding: 10px 15px;
+        padding: 12px 18px;
         border-radius: 18px 18px 3px 18px;
-        margin: 5px 0;
+        margin: 8px 0;
         max-width: 70%;
         align-self: flex-end;
         margin-left: auto;
         margin-right: 10px;
+        box-shadow: 0 2px 8px rgba(74, 86, 226, 0.4);
+        position: relative;
+        transition: all 0.3s ease;
+        transform-origin: bottom right;
+        animation: message-appear 0.3s ease-out forwards;
     }
+    
+    .user-message:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(74, 86, 226, 0.6);
+    }
+    
     .bot-message {
-        background-color: #2b325b;
+        background: linear-gradient(135deg, #2b325b 0%, #1a1f36 100%);
         color: white;
-        padding: 10px 15px;
+        padding: 12px 18px;
         border-radius: 18px 18px 18px 3px;
-        margin: 5px 0;
+        margin: 8px 0;
         max-width: 70%;
         align-self: flex-start;
         margin-right: auto;
         margin-left: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        position: relative;
+        transition: all 0.3s ease;
+        transform-origin: bottom left;
+        animation: message-appear 0.3s ease-out forwards;
+        border-left: 2px solid #4a56e2;
     }
+    
+    .bot-message:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+    
+    @keyframes message-appear {
+        0% { opacity: 0; transform: translateY(10px) scale(0.95); }
+        100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    
     .message-container {
         display: flex;
         flex-direction: column;
-        margin-bottom: 10px;
+        margin-bottom: 12px;
+        position: relative;
+    }
+    
+    .timestamp {
+        font-size: 10px;
+        color: rgba(255, 255, 255, 0.5);
+        margin-top: 4px;
+        align-self: flex-end;
+    }
+    
+    .typing-indicator {
+        display: inline-block;
+        padding: 8px 12px;
+        background-color: rgba(43, 50, 91, 0.7);
+        border-radius: 12px;
+        margin-left: 10px;
+    }
+    
+    .typing-indicator span {
+        height: 8px;
+        width: 8px;
+        float: left;
+        margin: 0 1px;
+        background-color: #4a56e2;
+        display: block;
+        border-radius: 50%;
+        opacity: 0.4;
+    }
+    
+    .typing-indicator span:nth-of-type(1) {
+        animation: typing 1s infinite 0.1s;
+    }
+    
+    .typing-indicator span:nth-of-type(2) {
+        animation: typing 1s infinite 0.3s;
+    }
+    
+    .typing-indicator span:nth-of-type(3) {
+        animation: typing 1s infinite 0.5s;
+    }
+    
+    @keyframes typing {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-5px); }
+        100% { transform: translateY(0px); }
+    }
+    
+    /* Chat input styling */
+    [data-testid="stForm"] {
+        background-color: rgba(26, 31, 54, 0.7);
+        border-radius: 12px;
+        padding: 15px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        border: 1px solid #2b325b;
+        transition: all 0.3s ease;
+    }
+    
+    [data-testid="stForm"]:hover {
+        border-color: #4a56e2;
+    }
+    
+    /* Chat header */
+    .chat-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid rgba(74, 86, 226, 0.3);
+    }
+    
+    .chat-status {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        background-color: #4CAF50;
+        border-radius: 50%;
+        margin-right: 10px;
+        box-shadow: 0 0 8px #4CAF50;
+        animation: blink 2s infinite;
+    }
+    
+    @keyframes blink {
+        0% { opacity: 0.4; }
+        50% { opacity: 1; }
+        100% { opacity: 0.4; }
     }
     </style>
     """, unsafe_allow_html=True)
@@ -582,21 +945,76 @@ with tab4:
     # Update chatbot with latest data
     st.session_state.chatbot.update_data(df)
     
-    # Display chat messages
+    # Display a futuristic chat header
+    st.markdown(f"""
+    <div style="display: flex; align-items: center; margin-bottom: 15px; background: linear-gradient(90deg, rgba(26, 31, 54, 0.8) 0%, rgba(74, 86, 226, 0.4) 100%); padding: 10px 20px; border-radius: 10px; border-left: 3px solid #4a56e2;">
+        <div class="chat-status"></div>
+        <div>
+            <div style="font-weight: bold; font-size: 16px;">Wellness AI Assistant</div>
+            <div style="font-size: 12px; color: #c0c0c0;">Active | Connected to Employee Database</div>
+        </div>
+        <div style="margin-left: auto; display: flex; gap: 10px;">
+            <div class="status-indicator status-good" title="System Status: Normal"></div>
+            <div class="status-indicator status-good" title="Database Connected"></div>
+            <div class="status-indicator status-good" title="AI Model Loaded"></div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # Display chat messages with improved UI
     chat_container = st.container()
     with chat_container:
         st.markdown('<div class="chat-container" id="chat-container">', unsafe_allow_html=True)
         
+        # Current timestamp for messages
+        current_time = datetime.now().strftime("%H:%M")
+        
         # If there's no history, show a welcome message
         if not st.session_state.chat_history:
-            st.markdown('<div class="message-container"><div class="bot-message">Hello! I\'m your Wellness Assistant. Ask me about departments, employees, or stress levels!</div></div>', unsafe_allow_html=True)
+            st.markdown(f"""
+            <div class="message-container">
+                <div class="bot-message">
+                    <div style="display: flex; align-items: center; margin-bottom: 5px;">
+                        <div style="width: 24px; height: 24px; border-radius: 50%; background-color: #4a56e2; display: flex; justify-content: center; align-items: center; margin-right: 8px;">
+                            <span style="color: white; font-weight: bold; font-size: 10px;">AI</span>
+                        </div>
+                        <div style="font-weight: bold; font-size: 14px;">Wellness Assistant</div>
+                    </div>
+                    Hello! I'm your Wellness Assistant. Ask me about departments, employees, or stress levels!
+                    <div class="timestamp">{current_time}</div>
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
         else:
-            # Display all messages in the chat history
+            # Display all messages in the chat history with enhanced UI
             for message in st.session_state.chat_history:
                 if 'user' in message:
-                    st.markdown(f'<div class="message-container"><div class="user-message">{message["user"]}</div></div>', unsafe_allow_html=True)
+                    st.markdown(f"""
+                    <div class="message-container">
+                        <div class="user-message">
+                            <div style="display: flex; align-items: center; margin-bottom: 5px;">
+                                <div style="font-weight: bold; font-size: 14px;">You</div>
+                            </div>
+                            {message["user"]}
+                            <div class="timestamp">{current_time}</div>
+                        </div>
+                    </div>
+                    """, unsafe_allow_html=True)
                 if 'bot' in message:
-                    st.markdown(f'<div class="message-container"><div class="bot-message">{message["bot"]}</div></div>', unsafe_allow_html=True)
+                    st.markdown(f"""
+                    <div class="message-container">
+                        <div class="bot-message">
+                            <div style="display: flex; align-items: center; margin-bottom: 5px;">
+                                <div style="width: 24px; height: 24px; border-radius: 50%; background-color: #4a56e2; display: flex; justify-content: center; align-items: center; margin-right: 8px;">
+                                    <span style="color: white; font-weight: bold; font-size: 10px;">AI</span>
+                                </div>
+                                <div style="font-weight: bold; font-size: 14px;">Wellness Assistant</div>
+                            </div>
+                            {message["bot"]}
+                            <div class="timestamp">{current_time}</div>
+                        </div>
+                    </div>
+                    """, unsafe_allow_html=True)
         
         st.markdown('</div>', unsafe_allow_html=True)
     
@@ -622,26 +1040,65 @@ with tab4:
         # Rerun to update the interface
         st.rerun()
     
-    # Add example queries to help users
-    st.markdown("### Example Queries")
-    
-    example_col1, example_col2 = st.columns(2)
-    
-    with example_col1:
-        st.markdown("""
-        * Which department has the highest stress?
-        * How is the Engineering department doing?
-        * Show me the mood in Marketing department
-        * What is Employee John's stress level?
-        """)
-    
-    with example_col2:
-        st.markdown("""
-        * Show me all departments
-        * Who has the highest heart rate?
-        * What's the health status of Sales team?
-        * Tell me about employee EMP001
-        """)
+    # Add interactive example queries section with futuristic design
+    st.markdown("""
+    <div style="margin-top: 25px; padding: 15px; background: linear-gradient(90deg, rgba(26, 31, 54, 0.7) 0%, rgba(43, 50, 91, 0.7) 100%); border-radius: 10px; border: 1px solid #2b325b; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);">
+        <h3 style="margin-top: 0; margin-bottom: 15px; color: white; font-size: 18px; display: flex; align-items: center;">
+            <span style="display: inline-block; width: 24px; height: 24px; background-color: #4a56e2; border-radius: 50%; margin-right: 10px; text-align: center; line-height: 24px; font-size: 14px;">💡</span>
+            Suggested Queries
+        </h3>
+        <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;">
+            <div class="query-pill" onclick="document.querySelector('[data-testid=\\'stFormSubmitButton\\'] button').click();" style="background: linear-gradient(135deg, rgba(74, 86, 226, 0.3) 0%, rgba(43, 50, 91, 0.3) 100%); padding: 8px 15px; border-radius: 20px; cursor: pointer; transition: all 0.2s ease; border: 1px solid rgba(74, 86, 226, 0.5); display: inline-block; margin: 5px 0;">Which department has the highest stress?</div>
+            <div class="query-pill" onclick="document.querySelector('[data-testid=\\'stFormSubmitButton\\'] button').click();" style="background: linear-gradient(135deg, rgba(74, 86, 226, 0.3) 0%, rgba(43, 50, 91, 0.3) 100%); padding: 8px 15px; border-radius: 20px; cursor: pointer; transition: all 0.2s ease; border: 1px solid rgba(74, 86, 226, 0.5); display: inline-block; margin: 5px 0;">How is the Engineering department?</div>
+            <div class="query-pill" onclick="document.querySelector('[data-testid=\\'stFormSubmitButton\\'] button').click();" style="background: linear-gradient(135deg, rgba(74, 86, 226, 0.3) 0%, rgba(43, 50, 91, 0.3) 100%); padding: 8px 15px; border-radius: 20px; cursor: pointer; transition: all 0.2s ease; border: 1px solid rgba(74, 86, 226, 0.5); display: inline-block; margin: 5px 0;">Show me all departments</div>
+            <div class="query-pill" onclick="document.querySelector('[data-testid=\\'stFormSubmitButton\\'] button').click();" style="background: linear-gradient(135deg, rgba(74, 86, 226, 0.3) 0%, rgba(43, 50, 91, 0.3) 100%); padding: 8px 15px; border-radius: 20px; cursor: pointer; transition: all 0.2s ease; border: 1px solid rgba(74, 86, 226, 0.5); display: inline-block; margin: 5px 0;">Tell me about employee EMP001</div>
+        </div>
+        
+        <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+            <div class="query-category" style="flex: 1;">
+                <div style="font-weight: bold; font-size: 14px; color: #4a56e2; margin-bottom: 8px; border-bottom: 1px solid rgba(74, 86, 226, 0.3); padding-bottom: 5px;">
+                    <span style="display: inline-block; width: 18px; height: 18px; background-color: rgba(74, 86, 226, 0.3); border-radius: 50%; margin-right: 5px; text-align: center; line-height: 18px; font-size: 10px;">🔍</span>
+                    Department Queries
+                </div>
+                <ul style="list-style-type: none; padding-left: 10px; margin: 0;">
+                    <li style="margin-bottom: 8px; display: flex; align-items: center;">
+                        <span style="color: #4a56e2; margin-right: 8px;">→</span>
+                        <span>Show me the mood in Marketing</span>
+                    </li>
+                    <li style="margin-bottom: 8px; display: flex; align-items: center;">
+                        <span style="color: #4a56e2; margin-right: 8px;">→</span>
+                        <span>What's the health status of Sales?</span>
+                    </li>
+                    <li style="margin-bottom: 8px; display: flex; align-items: center;">
+                        <span style="color: #4a56e2; margin-right: 8px;">→</span>
+                        <span>Which team has the lowest SpO2?</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="query-category" style="flex: 1;">
+                <div style="font-weight: bold; font-size: 14px; color: #4a56e2; margin-bottom: 8px; border-bottom: 1px solid rgba(74, 86, 226, 0.3); padding-bottom: 5px;">
+                    <span style="display: inline-block; width: 18px; height: 18px; background-color: rgba(74, 86, 226, 0.3); border-radius: 50%; margin-right: 5px; text-align: center; line-height: 18px; font-size: 10px;">👤</span>
+                    Employee Queries
+                </div>
+                <ul style="list-style-type: none; padding-left: 10px; margin: 0;">
+                    <li style="margin-bottom: 8px; display: flex; align-items: center;">
+                        <span style="color: #4a56e2; margin-right: 8px;">→</span>
+                        <span>What is John's stress level?</span>
+                    </li>
+                    <li style="margin-bottom: 8px; display: flex; align-items: center;">
+                        <span style="color: #4a56e2; margin-right: 8px;">→</span>
+                        <span>Who has the highest heart rate?</span>
+                    </li>
+                    <li style="margin-bottom: 8px; display: flex; align-items: center;">
+                        <span style="color: #4a56e2; margin-right: 8px;">→</span>
+                        <span>Compare EMP002 and EMP003</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
 
 # Footer
 st.markdown("---")
