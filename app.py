@@ -257,7 +257,7 @@ col1, col2 = st.columns([1, 5])
 with col1:
     st.markdown(f'{svg_logo}', unsafe_allow_html=True)
 with col2:
-    st.title("Employee Wellness Dashboard")
+    st.markdown("<h1 style='font-size:2.5rem; margin-bottom:0.5rem;'>HR Wellness Dashboard</h1>", unsafe_allow_html=True)
     st.markdown("Monitor employee health metrics and analyze stress levels in real-time")
 
 # Load data
@@ -1048,10 +1048,10 @@ with tab4:
             Suggested Queries
         </h3>
         <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;">
-            <div style="background: linear-gradient(135deg, rgba(74, 86, 226, 0.3) 0%, rgba(43, 50, 91, 0.3) 100%); padding: 8px 15px; border-radius: 20px; cursor: pointer; transition: all 0.2s ease; border: 1px solid rgba(74, 86, 226, 0.5); display: inline-block; margin: 5px 0;">Which department has the highest stress?</div>
-            <div style="background: linear-gradient(135deg, rgba(74, 86, 226, 0.3) 0%, rgba(43, 50, 91, 0.3) 100%); padding: 8px 15px; border-radius: 20px; cursor: pointer; transition: all 0.2s ease; border: 1px solid rgba(74, 86, 226, 0.5); display: inline-block; margin: 5px 0;">How is the Engineering department?</div>
-            <div style="background: linear-gradient(135deg, rgba(74, 86, 226, 0.3) 0%, rgba(43, 50, 91, 0.3) 100%); padding: 8px 15px; border-radius: 20px; cursor: pointer; transition: all 0.2s ease; border: 1px solid rgba(74, 86, 226, 0.5); display: inline-block; margin: 5px 0;">Show me all departments</div>
-            <div style="background: linear-gradient(135deg, rgba(74, 86, 226, 0.3) 0%, rgba(43, 50, 91, 0.3) 100%); padding: 8px 15px; border-radius: 20px; cursor: pointer; transition: all 0.2s ease; border: 1px solid rgba(74, 86, 226, 0.5); display: inline-block; margin: 5px 0;">Tell me about employee EMP001</div>
+            <button style="background: linear-gradient(135deg, rgba(74, 86, 226, 0.3) 0%, rgba(43, 50, 91, 0.3) 100%); padding: 8px 15px; border-radius: 20px; cursor: pointer; transition: all 0.2s ease; border: 1px solid rgba(74, 86, 226, 0.5); display: inline-block; margin: 5px 0; color: white; font-family: sans-serif;">Which department has the highest stress?</button>
+            <button style="background: linear-gradient(135deg, rgba(74, 86, 226, 0.3) 0%, rgba(43, 50, 91, 0.3) 100%); padding: 8px 15px; border-radius: 20px; cursor: pointer; transition: all 0.2s ease; border: 1px solid rgba(74, 86, 226, 0.5); display: inline-block; margin: 5px 0; color: white; font-family: sans-serif;">How is the Engineering department?</button>
+            <button style="background: linear-gradient(135deg, rgba(74, 86, 226, 0.3) 0%, rgba(43, 50, 91, 0.3) 100%); padding: 8px 15px; border-radius: 20px; cursor: pointer; transition: all 0.2s ease; border: 1px solid rgba(74, 86, 226, 0.5); display: inline-block; margin: 5px 0; color: white; font-family: sans-serif;">Show me all departments</button>
+            <button style="background: linear-gradient(135deg, rgba(74, 86, 226, 0.3) 0%, rgba(43, 50, 91, 0.3) 100%); padding: 8px 15px; border-radius: 20px; cursor: pointer; transition: all 0.2s ease; border: 1px solid rgba(74, 86, 226, 0.5); display: inline-block; margin: 5px 0; color: white; font-family: sans-serif;">Tell me about employee EMP001</button>
         </div>
         
         <div style="display: flex; flex-wrap: wrap; gap: 10px;">
