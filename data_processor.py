@@ -1,7 +1,14 @@
 import pandas as pd
 import streamlit as st
+import logging
 from utils import generate_demo_data
+from database import load_data_from_db, initialize_database, insert_demo_data, has_data
 
+# Set up logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+@st.cache_data(ttl=300)  # Cache data for 5 minutes
 def load_data():
     """
     Load and process the HR wellness data
@@ -9,11 +16,24 @@ def load_data():
     Returns:
         Processed DataFrame with employee health metrics
     """
-    # In a real application, we would load data from a database or API
-    # For this demo, we'll generate synthetic data
+    # Initialize database if needed
+    initialize_database()
+    
+    # Check if we have data in the database
+    if has_data():
+        # Load data from database
+        logger.info("Loading data from database")
+        db_data = load_data_from_db()
+        if db_data is not None and not db_data.empty:
+            return db_data
+    
+    # If no data in database or error occurred, generate demo data
+    logger.info("Generating demo data")
     df = generate_demo_data(n_employees=50)
     
-    # Cache the data to improve performance
+    # Insert demo data into database
+    insert_demo_data(df)
+    
     return df
 
 def get_departments(df):

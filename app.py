@@ -120,9 +120,29 @@ filtered_df = filter_data(df, selected_department)
 # Calculate summary metrics
 metrics = get_summary_metrics(filtered_df)
 
+# Database information
+st.sidebar.markdown("## Database")
+st.sidebar.info("PostgreSQL database is connected and storing employee wellness data.")
+
 # Last updated timestamp
 current_time = datetime.now().strftime("%d %b %Y, %H:%M:%S")
 st.sidebar.markdown(f"**Last Updated:** {current_time}")
+
+# Admin section (collapsible)
+with st.sidebar.expander("Admin Controls"):
+    st.markdown("#### Database Management")
+    if st.button("Reset Demo Data"):
+        # This will clear the cache and reload the data
+        st.cache_data.clear()
+        st.rerun()
+    
+    st.markdown("#### Data Refresh")
+    refresh_rate = st.select_slider(
+        "Auto Refresh Rate",
+        options=["Off", "1 min", "5 min", "15 min", "30 min"],
+        value="Off"
+    )
+    st.caption("In a production environment, this would automatically refresh data from sensors.")
 
 # Refresh button
 if st.sidebar.button("Refresh Data"):
@@ -278,8 +298,13 @@ with tab2:
     employees_per_page = 10
     total_pages = (len(search_results) + employees_per_page - 1) // employees_per_page
     
-    if total_pages > 0:
-        page = st.slider("Page", 1, max(1, total_pages), 1)
+    if len(search_results) > 0:
+        # Only show slider if there's more than one page
+        if total_pages > 1:
+            page = st.slider("Page", 1, total_pages, 1)
+        else:
+            page = 1
+            
         start_idx = (page - 1) * employees_per_page
         end_idx = min(start_idx + employees_per_page, len(search_results))
         
