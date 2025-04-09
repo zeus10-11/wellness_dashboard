@@ -1096,6 +1096,4 @@ st.markdown("*This dashboard uses simulated data for demonstration purposes. In 
 # Add a note about data refresh
 st.markdown(f"Dashboard last refreshed at {current_time}")
 
-if __name__ == "__main__":
-    # This will be executed when the script runs directly
-    pass
+
