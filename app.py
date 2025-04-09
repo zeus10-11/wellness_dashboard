@@ -4,6 +4,10 @@ import plotly.express as px
 import numpy as np
 from datetime import datetime
 import time
+import logging
+logging.basicConfig(level=logging.DEBUG)
+st.info("✅ App started initializing...")
+
 
 from utils import (
     plot_department_stress, plot_heart_rate_distribution,
