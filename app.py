@@ -249,8 +249,16 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Load SVG logo
-with open('assets/logo.svg', 'r') as f:
-    svg_logo = f.read()
+logo_path = 'assets/logo.svg'
+if os.path.exists(logo_path):
+    try:
+        with open(logo_path, 'r', encoding='utf-8') as f:
+            svg_logo = f.read()
+    except Exception as e:
+        svg_logo = f"<!-- Logo failed: {e} -->"
+else:
+    svg_logo = "<!-- Logo not found -->"
+
 
 # Header
 col1, col2 = st.columns([1, 5])
